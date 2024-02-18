@@ -6,9 +6,8 @@
 ETL*/
 
 # Models
-*.npz
-*.keras
-*.h5
+models/*
+notebooks/datasets/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
