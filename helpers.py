@@ -12,7 +12,6 @@ class FileNotExistsException(Exception):
 
 def reshape_image(img_data_fmt, img_arr):
     # Apparently Keras has two image data formats???
-    # Why the fuck does this exist
     # https://www.tensorflow.org/api_docs/python/tf/keras/backend/image_data_format
     if img_data_fmt == "channels_last":
         img_arr = img_arr.reshape(48, 48, 1)
@@ -20,7 +19,6 @@ def reshape_image(img_data_fmt, img_arr):
         img_arr = img_arr.reshape(1, 48, 48)
 
     # Apparently Keras models are optimized for MULTIPLE predictions instead of single????
-    # Why the fuck is it like this
     # Create list with one input, apparently
     return (np.expand_dims(img_arr, 0))
 
