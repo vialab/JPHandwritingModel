@@ -8,7 +8,7 @@ np.set_printoptions(threshold=np.inf)
 from keras.preprocessing.image import ImageDataGenerator
 from keras import backend as K
 
-from helpers import FieldNotExistsException, FileNotExistsException, label, reshape_image
+from helpers import FieldNotExistsException, FileNotExistsException, label, reshape_image, romaji
 
 app = Flask(__name__)
 
@@ -66,14 +66,13 @@ def predict():
 
         # Read processed image data (for debug reasons)
         # app.logger.info(img_data)
-        app.logger.info(f"Image shape: {img_data.shape}")
+        # app.logger.info(f"Image shape: {img_data.shape}")
 
         pred = model.predict(img_data)
-        # pred = "nya"
         final_pred = np.argmax(pred[0])
         app.logger.info(f"Prediction(?): {final_pred}")
 
-        return {"response": "hi", "prediction": label[final_pred]}
+        return {"romaji": romaji[final_pred], "prediction": label[final_pred]}
 
     except (FieldNotExistsException, FileNotExistsException) as err:
         return {"message": str(err)}, err.err_code
