@@ -6,7 +6,7 @@
 ETL*/
 
 # Models
-models/*
+models/*.keras
 notebooks/datasets/*
 
 # Byte-compiled / optimized / DLL files
