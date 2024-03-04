@@ -1,7 +1,7 @@
 # Hiragana recognition model server
 ML model code taken from [this repo](https://github.com/Nippon2019/Handwritten-Japanese-Recognition), licensed under the MIT license.
 
-The Docker image is ~22GB of storage. There are probably ways to trim it down, but I'm not a sysadmin.
+~~The Docker image is ~22GB of storage. There are probably ways to trim it down, but I'm not a sysadmin.~~ As of latest commit I don't think this is true anymore but I'm too busy with the prototype to check :P
 
 # Deployment
 

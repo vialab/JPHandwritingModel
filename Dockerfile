@@ -1,19 +1,17 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM tensorflow/tensorflow:2.14.0-gpu
 
 # Env variables
 ENV DEB_PYTHON_INSTALL_LAYOUT='deb'
 
-# Full send everything to /server/ directory
-WORKDIR /server
-COPY . /server
-
-# Update everything, uninstall blinker because Flask will yell if I don't 
-RUN apt update && apt upgrade -y
 RUN apt remove python3-blinker -y
 
-# Let Piplups install packages (warning: not recommended)
-RUN python3 -m pip install --upgrade pip
+# Full send everything to /server/ directory
+WORKDIR /server
+
+COPY requirements.txt .
+
 RUN pip install -r requirements.txt
+COPY . .
 
 # Run on all addresses, port 5000
 EXPOSE 5000
