@@ -20,8 +20,17 @@ def load_model(file_path: str):
     model.make_predict_function() # Necessary?
 
 def process_image(img):
-    # load image as greyscale
-    image = Image.open(img).convert("L")
+    # load image 
+    image = Image.open(img)
+
+    # create white background, same dimensions as original image
+    background = Image.new(mode="RGBA", size=(image.width, image.height), color=(255, 255, 255))
+
+    # merge layers
+    image = Image.alpha_composite(background, image)
+
+    # convert to greyscale
+    image = image.convert("L")
 
     # inverting the image might help with predictions
     image = ImageOps.invert(image)
