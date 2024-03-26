@@ -2,11 +2,10 @@ from flask import Flask, request
 
 from PIL import Image, ImageOps
 
-from tensorflow import keras
+import tensorflow as tf
+import keras
 import numpy as np
 np.set_printoptions(threshold=np.inf)
-from keras.preprocessing.image import ImageDataGenerator
-from keras import backend as K
 
 from helpers import FieldNotExistsException, FileNotExistsException, label, reshape_image, romaji
 
@@ -21,13 +20,17 @@ def load_model(file_path: str):
 
 def process_image(img):
     # load image 
-    image = Image.open(img)
+    image = Image.open(img).convert("RGBA")
+    # app.logger.info(f"Image mode: {image.mode}\nImage dimensions: {image.width} x {image.height}")
 
     # create white background, same dimensions as original image
     background = Image.new(mode="RGBA", size=(image.width, image.height), color=(255, 255, 255))
+    # app.logger.info(f"Background mode: {background.mode}\nImage dimensions: {background.width} x {background.height}")
 
     # merge layers
     image = Image.alpha_composite(background, image)
+
+    # image.save(secure_filename(img.filename))
 
     # convert to greyscale
     image = image.convert("L")
@@ -88,5 +91,5 @@ def predict():
 
 if __name__ == "__main__": 
     print("Loading Keras model...")
-    load_model("models/hiragana_1.keras")
-    app.run() # Add debug = True for logs and stuff
+    load_model("models/hiragana_latest.keras")
+    app.run(debug=True) # Add debug = True for logs and stuff
