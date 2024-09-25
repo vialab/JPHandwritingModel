@@ -92,4 +92,4 @@ def predict():
 if __name__ == "__main__": 
     print("Loading Keras model...")
     load_model("models/hiragana_latest.keras")
-    app.run(debug=True) # Add debug = True for logs and stuff
+    app.run(debug=True, host='0.0.0.0') # Add debug = True for logs and stuff
