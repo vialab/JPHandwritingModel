@@ -1,27 +1,32 @@
 FROM ghcr.io/astral-sh/uv:0.4.16 AS uv
-FROM tensorflow/tensorflow:2.14.0-gpu
+FROM tensorflow/tensorflow:latest
 
 # Env variables
 ENV DEB_PYTHON_INSTALL_LAYOUT='deb'
 
-RUN apt remove python3-blinker -y
-
-# Full send everything to /server/ directory
 WORKDIR /server
 
-COPY requirements.txt ./
+# Python project files
+COPY requirements.lock ./
+COPY pyproject.toml ./
+
+# logging config
+COPY log_conf.yaml ./
+
+# remove constraints from constraint file
+# the constraints, in this case, are editable requirements
+RUN sed -ir 's/^-e /# -e /g' requirements.lock
 
 # https://github.com/astral-sh/uv/blob/main/docs/docker.md
 RUN --mount=from=uv,source=/uv,target=/bin/uv \
     --mount=type=cache,target=/root/.cache/uv \
     PYTHONDONTWRITEBYTECODE=1 \
     uv pip install --system \
-    -r requirements.txt
+    --constraint requirements.lock \
+    -e .
 
 COPY models/ models/
 
 COPY *.py ./
 
-# Run on all addresses, port 5000
-EXPOSE 5000
-CMD [ "python", "app.py", "--host=0.0.0.0 --port=5000" ]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000", "--log-config=log_conf.yaml"]
