@@ -18,7 +18,7 @@ async def get_health() -> dict[str, str]:
     return {"status": "OK"}
 
 @app.post("/predict/", response_model=PredictionFormResponse)
-async def predict_hiragana_character(img: Annotated[UploadFile, File(media_type="image/png, image/jpg")] | None = File(...)):
+async def predict_hiragana_character(img: Annotated[UploadFile, File(media_type="image/png")] | None = File(...)):
     # Check if file is there
     if not img:
         raise FileDoesNotExistHTTPException("No image has been uploaded.")

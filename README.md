@@ -5,7 +5,7 @@ ML model code taken from [this repo](https://github.com/Nippon2019/Handwritten-J
 
 # Usage
 
-The API has only one endpoint: `/predict`. It accepts a multipart form with the body as follows:
+The API has only one useful endpoint: `/predict`. It accepts a multipart form with the body as follows:
 
 |Key|Method|Information|Format|
 |---|---|---|---|
@@ -18,15 +18,16 @@ The API sends a response in JSON format. Here is a sample response:
     "prediction": "あ"
 }
 ```
+There is also a `/ping` endpoint (GET) for health check purposes.
 
 # Deployment
 
 This assumes you have [Docker](https://www.docker.com/) installed, and the latest NVIDIA graphics drivers installed. Change port in `Dockerfile` (line 20), and in `compose.yaml` (line 5) as well if needed. Then, run
 
 ```
-docker compose up
+docker compose up --build
 ```
 
 to build and start the server.
 
-By default, *it is not prod-ready, and also uses the default Flask dev port (5000)*.
+By default, *it is not prod-ready*.
