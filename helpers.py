@@ -1,3 +1,4 @@
+import io
 import logging
 from typing import Any
 import keras
@@ -14,7 +15,7 @@ def load_model(filepath: str, logger: logging.Logger) -> Any: # that's what kera
 
 def process_image(img_data_fmt, img) -> np.ndarray:
     # load image and create fully white background based on image dimensions
-    image: Image.Image = Image.open(img).convert("RGBA")
+    image: Image.Image = Image.open(io.BytesIO(img)).convert("RGBA")
     background: Image.Image = Image.new(mode="RGBA", size=(image.width, image.height), color=(255, 255, 255))
     image = Image.alpha_composite(background, image) # merge the images
 
