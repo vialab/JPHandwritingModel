@@ -8,14 +8,15 @@ authors = [
 dependencies = [
     "fastapi[standard]>=0.115.4",
     "python-multipart>=0.0.17",
-    "pillow>=11.0.0",
+    "pillow>=11.0.0"
 ]
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.12"
 
 [tool.rye]
 managed = true
 virtual = true
 dev-dependencies = [
-    "tensorflow>=2.18.0"
+    "tensorflow>=2.18.0",
+    "numpy>=2.1.3",
 ]
