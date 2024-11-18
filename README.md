@@ -63,7 +63,7 @@ in the project root. The API will be available on port 8000.
 
 # Deployment
 
-This assumes you have [Docker](https://www.docker.com/) installed, and the latest NVIDIA graphics drivers installed. Change port in `Dockerfile` (line 20), and in `compose.yaml` (line 5) as well if needed. Then, run
+This assumes you have [Docker](https://www.docker.com/) installed. Change port/command in `Dockerfile` (line 32), and in `compose.yaml` (line 5) as well if needed. Then, run
 
 ```
 docker compose up --build
