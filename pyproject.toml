@@ -1,6 +1,6 @@
 [project]
 name = "jphandwritingmodel"
-version = "0.1.0"
+version = "0.1.1"
 description = "Add your description here"
 authors = [
     { name = "Reese D.", email = "61914473+fenreese@users.noreply.github.com" }
@@ -18,5 +18,4 @@ managed = true
 virtual = true
 dev-dependencies = [
     "tensorflow>=2.18.0",
-    "numpy>=2.1.3",
 ]
