@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:0.4.16 AS uv
+FROM ghcr.io/astral-sh/uv:latest AS uv
 FROM tensorflow/tensorflow:latest
 
 # Env variables

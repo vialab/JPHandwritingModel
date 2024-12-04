@@ -1,5 +1,6 @@
 from typing import Annotated, Any
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 import keras
 import numpy as np
 from numpy import intp, ndarray
@@ -11,6 +12,18 @@ from helpers import load_model, process_image, label, romaji
 logger: logging.Logger = logging.getLogger(__name__)
 model = load_model("models/hiragana_latest.keras", logger)
 app = FastAPI()
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["POST","GET"],
+    allow_headers=["*"]
+)
 
 @app.get("/ping")
 async def get_health() -> dict[str, str]:
